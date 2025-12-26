@@ -71,6 +71,26 @@ ModelImport::~ModelImport()
     m_imageDataBuffers.shrink_to_fit();
 }
 
+void ModelImport::ClearOffscreenExcludes()
+{
+    m_offscreenExcludes.clear();
+}
+
+void ModelImport::AddOffscreenExclude(const Handle(AIS_InteractiveObject)& obj)
+{
+    if (obj.IsNull())
+        return;
+    auto it = std::find_if(m_offscreenExcludes.begin(), m_offscreenExcludes.end(),
+        [&obj](const Handle(AIS_InteractiveObject)& existing) { return existing == obj; });
+    if (it == m_offscreenExcludes.end())
+        m_offscreenExcludes.push_back(obj);
+}
+
+void ModelImport::SetOffscreenExcludes(const std::vector<Handle(AIS_InteractiveObject)>& objs)
+{
+    m_offscreenExcludes = objs;
+}
+
 
 // 主函数，支持焦距控制
 bool ModelImport::ImportModelAndExportViews(const std::wstring& filePath,
@@ -319,6 +339,14 @@ bool ModelImport::ImportExportViews(Handle(V3d_Viewer)& viewer,
     m_imageDataBuffers.clear();
 
     Handle(V3d_View) imgView = GetOrCreateImageView(w, h);
+
+    for (const auto& obj : m_offscreenExcludes)
+    {
+        if (!obj.IsNull())
+        {
+            obj->SetViewAffinity(imgView, false);
+        }
+    }
 
     CalculateModelBounds();
 
