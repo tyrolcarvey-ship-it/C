@@ -1388,6 +1388,8 @@ void CStl3DLasetDoc::ImportSTEP(CString name, INT pyte)
 	((CMainFrame*)AfxGetMainWnd())->SwitchView(0);
 	COccView* pView = ((CMainFrame*)AfxGetMainWnd())->m_OccView;
 	SelectedFeature* pList = ((CMainFrame*)AfxGetMainWnd())->m_FeatureView;
+	m_userModel.Nullify();
+	m_autoModel.Nullify();
 
 	/* 1. 用 XCAF 读取 STEP */
 	Handle(TDocStd_Document) xdoc;
@@ -1414,6 +1416,44 @@ void CStl3DLasetDoc::ImportSTEP(CString name, INT pyte)
 	Handle(AIS_InteractiveContext) newCtx = new AIS_InteractiveContext(myViewer);
 	newCtx->SetDisplayMode(AIS_Shaded, Standard_True);
 	if (!pView->SetAISContext(newCtx)) return;
+
+	m_userModel = myAISShape;
+
+	auto loadStepShape = [](const CString& filePath, TopoDS_Shape& outShape) -> bool {
+		if (filePath.IsEmpty())
+			return false;
+		Handle(TDocStd_Document) doc;
+		Handle(XCAFApp_Application) app = XCAFApp_Application::GetApplication();
+		app->NewDocument("MDTV-XCAF", doc);
+		STEPCAFControl_Reader localReader;
+		IFSelect_ReturnStatus status = localReader.ReadFile((Standard_CString)(LPCTSTR)filePath);
+		if (status != IFSelect_RetDone)
+			return false;
+		localReader.Transfer(doc);
+		Handle(XCAFDoc_ShapeTool) shapeTool = XCAFDoc_DocumentTool::ShapeTool(doc->Main());
+		TDF_LabelSequence freeShapes;
+		shapeTool->GetFreeShapes(freeShapes);
+		if (freeShapes.IsEmpty())
+			return false;
+		outShape = shapeTool->GetShape(freeShapes.Value(1));
+		return !outShape.IsNull();
+	};
+
+	CString appPath = CA2T(GetAppPath().c_str());
+	CString fixedModelPath = appPath + _T("\\fixed.step");
+	TopoDS_Shape fixedShape;
+	if (loadStepShape(fixedModelPath, fixedShape))
+	{
+		m_autoModel = new AIS_Shape(fixedShape);
+		m_autoModel->SetColor(Quantity_NOC_GRAY50);
+		pView->Add(m_autoModel);
+		g_modelopened.ClearOffscreenExcludes();
+		g_modelopened.AddOffscreenExclude(m_autoModel);
+	}
+	else
+	{
+		g_modelopened.ClearOffscreenExcludes();
+	}
 
 	pView->Add(myAISShape);
 	pView->FitAll();
@@ -1523,8 +1563,6 @@ void CStl3DLasetDoc::ImportSTEP(CString name, INT pyte)
 		pView->CreateCoordinate(actualCoord);   // 传地址
 	}
 
-    // 先将路径转换为 CString
-    CString appPath = CA2T(GetAppPath().c_str());
     // 再拼接路径
     CString snapPath = appPath + _T("\\png\\objectSnap.png");
     pView->CaptureScreenPng(snapPath);

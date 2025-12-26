@@ -14,35 +14,35 @@
 
 #define OCCT_NO_DEPRECATED
 
-// WindowsÆ½Ì¨Ïà¹Ø
+// Windowså¹³å°ç›¸å…³
 #ifdef _WIN32
 #include <windows.h>
 #include <WNT_Window.hxx>
 #include <WNT_WClass.hxx>
 #endif // _WIN32
 
-// AIS (Application Interactive Services) - ½»»¥ÏÔÊ¾·şÎñ
+// AIS (Application Interactive Services) - äº¤äº’æ˜¾ç¤ºæœåŠ¡
 #include <AIS_InteractiveContext.hxx>
 #include <AIS_Shape.hxx>
 #include <AIS_ColoredShape.hxx>
 
-// TopoDS - ÍØÆËÊı¾İ½á¹¹
+// TopoDS - æ‹“æ‰‘æ•°æ®ç»“æ„
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Face.hxx>
 
-// XCAF Presentation - À©Õ¹CAF±íÊ¾²ã
+// XCAF Presentation - æ‰©å±•CAFè¡¨ç¤ºå±‚
 #include <XCAFPrs_AISObject.hxx>
 #include <XCAFPrs_Driver.hxx>
 #include <TPrsStd_AISPresentation.hxx>
 
-// ÍØÆËÌ½Ë÷ºÍ¼¸ºÎ»ù´¡
+// æ‹“æ‰‘æ¢ç´¢å’Œå‡ ä½•åŸºç¡€
 #include <TopExp_Explorer.hxx>
 #include <gp_Dir.hxx>
 #include <gp_Pnt.hxx>
 #include <Bnd_Box.hxx>
 #include <BRepBndLib.hxx>
 
-// 3DÊÓÍ¼ºÍÍ¼ĞÎäÖÈ¾
+// 3Dè§†å›¾å’Œå›¾å½¢æ¸²æŸ“
 #include <Aspect_DisplayConnection.hxx>
 #include <OpenGl_GraphicDriver.hxx>
 #include <V3d_Viewer.hxx>
@@ -52,7 +52,7 @@
 #include <Quantity_Color.hxx>
 #include <Prs3d_PointAspect.hxx>
 
-// XCAFÎÄµµ¹¤¾ß - À©Õ¹CAFÎÄµµ¹ÜÀí
+// XCAFæ–‡æ¡£å·¥å…· - æ‰©å±•CAFæ–‡æ¡£ç®¡ç†
 #include <XCAFApp_Application.hxx>
 #include <XCAFDoc_DocumentTool.hxx>
 #include <XCAFDoc_ShapeTool.hxx>
@@ -61,27 +61,27 @@
 #include <XCAFDoc_VisMaterial.hxx>
 #include <TDF_ChildIterator.hxx>
 
-// CADÎÄ¼şµ¼Èë
+// CADæ–‡ä»¶å¯¼å…¥
 #include <STEPCAFControl_Reader.hxx>
 #include <IGESCAFControl_Reader.hxx>
 
-// Í¼Ïñ´¦Àí
+// å›¾åƒå¤„ç†
 #include <Image_AlienPixMap.hxx>
 #include <Image_PixMap.hxx>
 
-// ÓÃÓÚ¶¥µãºÍĞÎ×´Ó³Éä
+// ç”¨äºé¡¶ç‚¹å’Œå½¢çŠ¶æ˜ å°„
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopExp.hxx>
 
-// ÓÃÓÚ±ßºÍÇúÏß´¦Àí
+// ç”¨äºè¾¹å’Œæ›²çº¿å¤„ç†
 #include <TopoDS_Edge.hxx>
 #include <BRep_Tool.hxx>
 #include <Geom_Curve.hxx>
 
-// ÓÃÓÚ±ê×¼ÀàĞÍ
+// ç”¨äºæ ‡å‡†ç±»å‹
 #include <Standard_Real.hxx>
 
-// ÆäËû¿ÉÄÜĞèÒªµÄ£¨Èç¹û»¹Ã»°üº¬£©
+// å…¶ä»–å¯èƒ½éœ€è¦çš„ï¼ˆå¦‚æœè¿˜æ²¡åŒ…å«ï¼‰
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS.hxx>
 #include <Interface_Static.hxx>
@@ -99,14 +99,14 @@ static inline T ClampT(T v, T lo, T hi) {
     return v < lo ? lo : (v > hi ? hi : v);
 }
 
-// ÊÓÍ¼ÅäÖÃ½á¹¹Ìå
+// è§†å›¾é…ç½®ç»“æ„ä½“
 struct ViewConfig
 {
-    double focalLength;     // ½¹¾à (mm)
-    double aspectRatio;     // ¿í¸ß±È
-    bool useCustomFocus;    // ÊÇ·ñÊ¹ÓÃ×Ô¶¨Òå½¹µã
-    gp_Pnt focusPoint;      // ×Ô¶¨Òå½¹µãÎ»ÖÃ
-    double viewScale;       // ÊÓÍ¼Ëõ·Å±ÈÀı (0.1 - 10.0)
+    double focalLength;     // ç„¦è· (mm)
+    double aspectRatio;     // å®½é«˜æ¯”
+    bool useCustomFocus;    // æ˜¯å¦ä½¿ç”¨è‡ªå®šä¹‰ç„¦ç‚¹
+    gp_Pnt focusPoint;      // è‡ªå®šä¹‰ç„¦ç‚¹ä½ç½®
+    double viewScale;       // è§†å›¾ç¼©æ”¾æ¯”ä¾‹ (0.1 - 10.0)
 
     ViewConfig()
         : focalLength(50.0)
@@ -120,45 +120,45 @@ struct ViewConfig
 
 struct TScalePara
 {
-    double x_scale = 0.0;       // X Öá ÏñËØµ±Á¿: mm/px
-    double y_scale = 0.0;       // Y Öá ÏñËØµ±Á¿: mm/px
-    double angle = 0.0;       // Í¼ÏñÆ½Ãæ¹ö×ª½Ç£¨¶È£¬ÄæÊ±ÕëÎªÕı£©
-    bool   calibrated_flag = false; // true=ÆôÓÃ±ê¶¨
-    std::wstring magnification; // ·Å´ó±¶ÂÊÎÄ×Ö
+    double x_scale = 0.0;       // X è½´ åƒç´ å½“é‡: mm/px
+    double y_scale = 0.0;       // Y è½´ åƒç´ å½“é‡: mm/px
+    double angle = 0.0;       // å›¾åƒå¹³é¢æ»šè½¬è§’ï¼ˆåº¦ï¼Œé€†æ—¶é’ˆä¸ºæ­£ï¼‰
+    bool   calibrated_flag = false; // true=å¯ç”¨æ ‡å®š
+    std::wstring magnification; // æ”¾å¤§å€ç‡æ–‡å­—
 };
 
 
 class ModelImport
 {
 public:
-    //! Ä¬ÈÏ¹¹Ôìº¯Êı
-    //! ³õÊ¼»¯³ÉÔ±±äÁ¿ºÍ×´Ì¬
+    //! é»˜è®¤æ„é€ å‡½æ•°
+    //! åˆå§‹åŒ–æˆå‘˜å˜é‡å’ŒçŠ¶æ€
     ModelImport();
 
-    //! Îö¹¹º¯Êı
-    //! ÇåÀí»º´æ¡¢ÊÍ·ÅOpenCASCADE×ÊÔ´ºÍÍ¼ÏñÊı¾İ»º³åÇø
+    //! ææ„å‡½æ•°
+    //! æ¸…ç†ç¼“å­˜ã€é‡Šæ”¾OpenCASCADEèµ„æºå’Œå›¾åƒæ•°æ®ç¼“å†²åŒº
     ~ModelImport();
 
-    // true=±£ÁôÍâ²¿×´Ì¬£»false=ÒÀ¾ÉÉèÖÃ
+    // true=ä¿ç•™å¤–éƒ¨çŠ¶æ€ï¼›false=ä¾æ—§è®¾ç½®
     bool m_preserveExternalViewState = true;
     void SetPreserveExternalViewState(bool on) { m_preserveExternalViewState = on; }
     bool GetPreserveExternalViewState() const { return m_preserveExternalViewState; }
 
-    // Ö÷Òª½Ó¿Ú - Ö§³Ö½¹¾à¿ØÖÆ
-    //! µ¼Èë3DÄ£ĞÍ²¢Éú³É¶àÊÓÍ¼Í¼ÏñµÄÖ÷Òª½Ó¿Ú
-    //! @param filePath Ä£ĞÍÎÄ¼şÂ·¾¶£¨Ö§³ÖSTEPºÍIGES¸ñÊ½£©
-    //! @param w Êä³öÍ¼Ïñ¿í¶È£¨ÏñËØ£©
-    //! @param h Êä³öÍ¼Ïñ¸ß¶È£¨ÏñËØ£©
-    //! @param generateImages ÊÇ·ñÉú³ÉÍ¼ÏñÎÄ¼şµ½´ÅÅÌ
-    //! @param focalLength ĞéÄâÏà»ú½¹¾à£¨ºÁÃ×£©£¬Ó°ÏìÊÓÍ¼Ëõ·ÅĞ§¹û
-    //! @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+    // ä¸»è¦æ¥å£ - æ”¯æŒç„¦è·æ§åˆ¶
+    //! å¯¼å…¥3Dæ¨¡å‹å¹¶ç”Ÿæˆå¤šè§†å›¾å›¾åƒçš„ä¸»è¦æ¥å£
+    //! @param filePath æ¨¡å‹æ–‡ä»¶è·¯å¾„ï¼ˆæ”¯æŒSTEPå’ŒIGESæ ¼å¼ï¼‰
+    //! @param w è¾“å‡ºå›¾åƒå®½åº¦ï¼ˆåƒç´ ï¼‰
+    //! @param h è¾“å‡ºå›¾åƒé«˜åº¦ï¼ˆåƒç´ ï¼‰
+    //! @param generateImages æ˜¯å¦ç”Ÿæˆå›¾åƒæ–‡ä»¶åˆ°ç£ç›˜
+    //! @param focalLength è™šæ‹Ÿç›¸æœºç„¦è·ï¼ˆæ¯«ç±³ï¼‰ï¼Œå½±å“è§†å›¾ç¼©æ”¾æ•ˆæœ
+    //! @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
     bool ImportModelAndExportViews(const std::wstring& filePath,
         const int w = 640,
         const int h = 480,
         bool generateImages = false,
         double focalLength = 50.0);
 
-    // Ö÷º¯Êı£¬Ö§³Ö½¹¾à¿ØÖÆ - Ê¹ÓÃÍâ²¿viewer¶ÔÏó
+    // ä¸»å‡½æ•°ï¼Œæ”¯æŒç„¦è·æ§åˆ¶ - ä½¿ç”¨å¤–éƒ¨viewerå¯¹è±¡
     bool ImportExportViews(Handle(V3d_Viewer)& viewer,
         Handle(AIS_InteractiveContext)& context,
         const int w = 640,
@@ -176,71 +176,75 @@ public:
 
 	Handle(AIS_InteractiveContext) GetContext() const { return m_context; };
 
-    // »ñÈ¡»º´æµÄÍ¼ÏñÊı¾İ
-    //! »ñÈ¡ËùÓĞÉú³ÉÊÓÍ¼µÄÍ¼ÏñÊı¾İ£¨ÄÚ´æÖĞµÄBGR¸ñÊ½£©
-    //! @return °üº¬4¸öÊÓÍ¼Í¼ÏñÊı¾İµÄvector£ºÇ°ÊÓÍ¼¡¢¶¥ÊÓÍ¼¡¢ÓÒÊÓÍ¼¡¢Ğ±ÊÓÍ¼
+    void ClearOffscreenExcludes();
+    void AddOffscreenExclude(const Handle(AIS_InteractiveObject)& obj);
+    void SetOffscreenExcludes(const std::vector<Handle(AIS_InteractiveObject)>& objs);
+
+    // è·å–ç¼“å­˜çš„å›¾åƒæ•°æ®
+    //! è·å–æ‰€æœ‰ç”Ÿæˆè§†å›¾çš„å›¾åƒæ•°æ®ï¼ˆå†…å­˜ä¸­çš„BGRæ ¼å¼ï¼‰
+    //! @return åŒ…å«4ä¸ªè§†å›¾å›¾åƒæ•°æ®çš„vectorï¼šå‰è§†å›¾ã€é¡¶è§†å›¾ã€å³è§†å›¾ã€æ–œè§†å›¾
     const std::vector<std::vector<unsigned char>>& GetAllViewData() const;
 
-    //! »ñÈ¡Ö¸¶¨Ë÷ÒıµÄÊÓÍ¼Í¼ÏñÊı¾İ
-    //! @param index ÊÓÍ¼Ë÷Òı£¨0:Ç°ÊÓÍ¼, 1:¶¥ÊÓÍ¼, 2:ÓÒÊÓÍ¼, 3:Ğ±ÊÓÍ¼£©
-    //! @return Ö¸ÏòÍ¼ÏñÊı¾İµÄÖ¸Õë£¬Ë÷Òı³¬³ö·¶Î§Ôò·µ»Ønullptr
+    //! è·å–æŒ‡å®šç´¢å¼•çš„è§†å›¾å›¾åƒæ•°æ®
+    //! @param index è§†å›¾ç´¢å¼•ï¼ˆ0:å‰è§†å›¾, 1:é¡¶è§†å›¾, 2:å³è§†å›¾, 3:æ–œè§†å›¾ï¼‰
+    //! @return æŒ‡å‘å›¾åƒæ•°æ®çš„æŒ‡é’ˆï¼Œç´¢å¼•è¶…å‡ºèŒƒå›´åˆ™è¿”å›nullptr
     const std::vector<unsigned char>* GetViewData(size_t index) const;
 
-    // »º´æ¹ÜÀí
-    //! ÇåÀíËùÓĞÒÑ¼ÓÔØÄ£ĞÍµÄ»º´æ£¬ÊÍ·ÅÄÚ´æºÍOpenCASCADE¶ÔÏó
+    // ç¼“å­˜ç®¡ç†
+    //! æ¸…ç†æ‰€æœ‰å·²åŠ è½½æ¨¡å‹çš„ç¼“å­˜ï¼Œé‡Šæ”¾å†…å­˜å’ŒOpenCASCADEå¯¹è±¡
     void ClearModelCache();
 
-    //! ÉèÖÃ×î´ó»º´æÄ£ĞÍÊıÁ¿£¬³¬³öÊ±½«ÒÆ³ı×î¾ÃÎ´Ê¹ÓÃµÄÄ£ĞÍ
-    //! @param maxCache ×î´ó»º´æÊıÁ¿
+    //! è®¾ç½®æœ€å¤§ç¼“å­˜æ¨¡å‹æ•°é‡ï¼Œè¶…å‡ºæ—¶å°†ç§»é™¤æœ€ä¹…æœªä½¿ç”¨çš„æ¨¡å‹
+    //! @param maxCache æœ€å¤§ç¼“å­˜æ•°é‡
     void SetMaxCache(size_t maxCache);
 
-    //! »ñÈ¡µ±Ç°ÉèÖÃµÄ×î´ó»º´æÊıÁ¿
-    //! @return ×î´ó»º´æÊıÁ¿
+    //! è·å–å½“å‰è®¾ç½®çš„æœ€å¤§ç¼“å­˜æ•°é‡
+    //! @return æœ€å¤§ç¼“å­˜æ•°é‡
     size_t GetMaxCache() const;
 
-    //! »ñÈ¡µ±Ç°»º´æÖĞµÄÄ£ĞÍÊıÁ¿
-    //! @return µ±Ç°»º´æ´óĞ¡
+    //! è·å–å½“å‰ç¼“å­˜ä¸­çš„æ¨¡å‹æ•°é‡
+    //! @return å½“å‰ç¼“å­˜å¤§å°
     size_t GetCurrentCacheSize() const;
 
-    // ÊÓÍ¼ÅäÖÃ·½·¨
-    //! ÉèÖÃÊÓÍ¼Ëõ·Å±ÈÀı
-    //! @param scale Ëõ·Å±ÈÀı£¨ÓĞĞ§·¶Î§£º0.1 - 10.0£©
+    // è§†å›¾é…ç½®æ–¹æ³•
+    //! è®¾ç½®è§†å›¾ç¼©æ”¾æ¯”ä¾‹
+    //! @param scale ç¼©æ”¾æ¯”ä¾‹ï¼ˆæœ‰æ•ˆèŒƒå›´ï¼š0.1 - 10.0ï¼‰
     void SetViewScale(double scale);
 
-    //! ÉèÖÃ×Ô¶¨Òå½¹µãÎ»ÖÃ£¬ÊÓÍ¼½«Î§ÈÆ´ËµãÉú³É
-    //! @param point 3D¿Õ¼äÖĞµÄ½¹µã×ø±ê
+    //! è®¾ç½®è‡ªå®šä¹‰ç„¦ç‚¹ä½ç½®ï¼Œè§†å›¾å°†å›´ç»•æ­¤ç‚¹ç”Ÿæˆ
+    //! @param point 3Dç©ºé—´ä¸­çš„ç„¦ç‚¹åæ ‡
     void SetCustomFocusPoint(const gp_Pnt& point);
 
-    //! ÖØÖÃÎª×Ô¶¯½¹µãÄ£Ê½£¬Ê¹ÓÃÄ£ĞÍ¼¸ºÎÖĞĞÄ×÷Îª½¹µã
+    //! é‡ç½®ä¸ºè‡ªåŠ¨ç„¦ç‚¹æ¨¡å¼ï¼Œä½¿ç”¨æ¨¡å‹å‡ ä½•ä¸­å¿ƒä½œä¸ºç„¦ç‚¹
     void ResetToAutoFocus();
 
-    // »ñÈ¡Ä£ĞÍ°üÎ§ºĞĞÅÏ¢
-    //! »ñÈ¡ÒÑ¼ÓÔØÄ£ĞÍµÄ±ß½ç¿òĞÅÏ¢
-    //! @param minPoint Êä³ö²ÎÊı£ºÄ£ĞÍ×îĞ¡×ø±êµã
-    //! @param maxPoint Êä³ö²ÎÊı£ºÄ£ĞÍ×î´ó×ø±êµã
-    //! @param center Êä³ö²ÎÊı£ºÄ£ĞÍ¼¸ºÎÖĞĞÄµã
-    //! @return ³É¹¦·µ»Øtrue£¬Ä£ĞÍÎ´¼ÓÔØ»ò±ß½ç¿òÎ´¼ÆËã·µ»Øfalse
+    // è·å–æ¨¡å‹åŒ…å›´ç›’ä¿¡æ¯
+    //! è·å–å·²åŠ è½½æ¨¡å‹çš„è¾¹ç•Œæ¡†ä¿¡æ¯
+    //! @param minPoint è¾“å‡ºå‚æ•°ï¼šæ¨¡å‹æœ€å°åæ ‡ç‚¹
+    //! @param maxPoint è¾“å‡ºå‚æ•°ï¼šæ¨¡å‹æœ€å¤§åæ ‡ç‚¹
+    //! @param center è¾“å‡ºå‚æ•°ï¼šæ¨¡å‹å‡ ä½•ä¸­å¿ƒç‚¹
+    //! @return æˆåŠŸè¿”å›trueï¼Œæ¨¡å‹æœªåŠ è½½æˆ–è¾¹ç•Œæ¡†æœªè®¡ç®—è¿”å›false
     bool GetModelBounds(gp_Pnt& minPoint, gp_Pnt& maxPoint, gp_Pnt& center) const;
 
-    //! ÉèÖÃÉú³ÉÍ¼ÏñµÄ¿í¶ÈºÍ¸ß¶È
-//! @param width Í¼Ïñ¿í¶È£¨ÏñËØ£©£¬ÓĞĞ§·¶Î§£º100-7680
-//! @param height Í¼Ïñ¸ß¶È£¨ÏñËØ£©£¬ÓĞĞ§·¶Î§£º100-4320
-//! @return ÉèÖÃ³É¹¦·µ»Øtrue£¬²ÎÊıÎŞĞ§·µ»Øfalse
+    //! è®¾ç½®ç”Ÿæˆå›¾åƒçš„å®½åº¦å’Œé«˜åº¦
+//! @param width å›¾åƒå®½åº¦ï¼ˆåƒç´ ï¼‰ï¼Œæœ‰æ•ˆèŒƒå›´ï¼š100-7680
+//! @param height å›¾åƒé«˜åº¦ï¼ˆåƒç´ ï¼‰ï¼Œæœ‰æ•ˆèŒƒå›´ï¼š100-4320
+//! @return è®¾ç½®æˆåŠŸè¿”å›trueï¼Œå‚æ•°æ— æ•ˆè¿”å›false
     bool SetImageSize(int width, int height);
 
-    //! »ñÈ¡µ±Ç°ÉèÖÃµÄÍ¼Ïñ³ß´ç
-    //! @param width Êä³ö²ÎÊı£ºµ±Ç°Í¼Ïñ¿í¶È
-    //! @param height Êä³ö²ÎÊı£ºµ±Ç°Í¼Ïñ¸ß¶È
+    //! è·å–å½“å‰è®¾ç½®çš„å›¾åƒå°ºå¯¸
+    //! @param width è¾“å‡ºå‚æ•°ï¼šå½“å‰å›¾åƒå®½åº¦
+    //! @param height è¾“å‡ºå‚æ•°ï¼šå½“å‰å›¾åƒé«˜åº¦
     void GetImageSize(int& width, int& height) const;
 
-    // ĞÂÔö½Ó¿Ú - ½¹¾à¿ØÖÆ
-    //! ÉèÖÃĞéÄâÏà»ú½¹¾à
-    //! @param focalLength ½¹¾à£¨ºÁÃ×£©£¬ÓĞĞ§·¶Î§£º0.1-500.0
-    //! @return ÉèÖÃ³É¹¦·µ»Øtrue£¬²ÎÊıÎŞĞ§·µ»Øfalse
+    // æ–°å¢æ¥å£ - ç„¦è·æ§åˆ¶
+    //! è®¾ç½®è™šæ‹Ÿç›¸æœºç„¦è·
+    //! @param focalLength ç„¦è·ï¼ˆæ¯«ç±³ï¼‰ï¼Œæœ‰æ•ˆèŒƒå›´ï¼š0.1-500.0
+    //! @return è®¾ç½®æˆåŠŸè¿”å›trueï¼Œå‚æ•°æ— æ•ˆè¿”å›false
     bool SetFocalLength(double focalLength);
 
-    //! »ñÈ¡µ±Ç°ÉèÖÃµÄ½¹¾à
-    //! @return µ±Ç°½¹¾àÖµ£¨ºÁÃ×£©
+    //! è·å–å½“å‰è®¾ç½®çš„ç„¦è·
+    //! @return å½“å‰ç„¦è·å€¼ï¼ˆæ¯«ç±³ï¼‰
     double GetFocalLength() const;
 
     std::vector<Handle(AIS_InteractiveObject)> ParseObjectsFromContext(Handle(AIS_InteractiveContext)& context);
@@ -281,7 +285,7 @@ public:
 private:
     std::vector<Handle(AIS_InteractiveObject)> m_offscreenExcludes;
 /// <summary>
-/// ///////////////¼ÓÒ»¸öĞéÄâÏà»ú
+/// ///////////////åŠ ä¸€ä¸ªè™šæ‹Ÿç›¸æœº
 /// </summary>
 
 public:
@@ -338,7 +342,7 @@ private:
         const std::vector<float>& depth, int w, int h,
         const Handle(V3d_View)& view);
 
-    TopoDS_Shape                     m_heightShape;    // ³¡¾°¼¸ºÎµÄ compound
+    TopoDS_Shape                     m_heightShape;    // åœºæ™¯å‡ ä½•çš„ compound
     IntCurvesFace_ShapeIntersector   m_heightInter;
     bool                             m_heightInterValid;
 
@@ -346,132 +350,132 @@ private:
     void RebuildHeightIntersectorFromScene();
 
 
-    // Ä£ĞÍ¼ÓÔØ·½·¨
-    //! Ê¹ÓÃ»º´æ»úÖÆ¼ÓÔØÄ£ĞÍ£¬ÓÅÏÈ´Ó»º´æÖĞ»ñÈ¡ÒÑ¼ÓÔØµÄÄ£ĞÍ
-    //! @param filePath Ä£ĞÍÎÄ¼şÂ·¾¶
-    //! @return ¼ÓÔØµÄAIS½»»¥¶ÔÏóÁĞ±í
+    // æ¨¡å‹åŠ è½½æ–¹æ³•
+    //! ä½¿ç”¨ç¼“å­˜æœºåˆ¶åŠ è½½æ¨¡å‹ï¼Œä¼˜å…ˆä»ç¼“å­˜ä¸­è·å–å·²åŠ è½½çš„æ¨¡å‹
+    //! @param filePath æ¨¡å‹æ–‡ä»¶è·¯å¾„
+    //! @return åŠ è½½çš„AISäº¤äº’å¯¹è±¡åˆ—è¡¨
     std::vector<Handle(AIS_InteractiveObject)> LoadModelWithCache(const std::wstring& filePath);
 
-    //! ´ÓÎÄ¼şÖ±½Ó¼ÓÔØÄ£ĞÍ£¬Ö§³ÖSTEPºÍIGES¸ñÊ½
-    //! @param filePath Ä£ĞÍÎÄ¼şÂ·¾¶
-    //! @param fileType ÎÄ¼şÀàĞÍÀ©Õ¹Ãû£¨step/stp/iges/igs£©
-    //! @return ¼ÓÔØµÄAIS½»»¥¶ÔÏóÁĞ±í
+    //! ä»æ–‡ä»¶ç›´æ¥åŠ è½½æ¨¡å‹ï¼Œæ”¯æŒSTEPå’ŒIGESæ ¼å¼
+    //! @param filePath æ¨¡å‹æ–‡ä»¶è·¯å¾„
+    //! @param fileType æ–‡ä»¶ç±»å‹æ‰©å±•åï¼ˆstep/stp/iges/igsï¼‰
+    //! @return åŠ è½½çš„AISäº¤äº’å¯¹è±¡åˆ—è¡¨
     std::vector<Handle(AIS_InteractiveObject)> LoadModelFromFile(const std::wstring& filePath,
         const std::wstring& fileType);
 
-    // ÏÔÊ¾·½·¨
-    //! ÔÚAISÉÏÏÂÎÄÖĞÏÔÊ¾Ä£ĞÍ¶ÔÏó£¬Ê¹ÓÃÒõÓ°×ÅÉ«Ä£Ê½
-    //! @param objects ÒªÏÔÊ¾µÄAIS½»»¥¶ÔÏóÁĞ±í
+    // æ˜¾ç¤ºæ–¹æ³•
+    //! åœ¨AISä¸Šä¸‹æ–‡ä¸­æ˜¾ç¤ºæ¨¡å‹å¯¹è±¡ï¼Œä½¿ç”¨é˜´å½±ç€è‰²æ¨¡å¼
+    //! @param objects è¦æ˜¾ç¤ºçš„AISäº¤äº’å¯¹è±¡åˆ—è¡¨
     void DisplayShapesWithShadedMode(const std::vector<Handle(AIS_InteractiveObject)>& objects);
 
-    // ÊÓÍ¼µ¼³ö·½·¨
-    //! ´´½¨ÀëÆÁ´°¿Ú²¢µ¼³ö¶à¸öÊÓÍ¼µ½ÄÚ´æºÍÎÄ¼ş
-    //! @param viewer 3D²é¿´Æ÷
-    //! @param context AIS½»»¥ÉÏÏÂÎÄ
-    //! @param baseFileName »ù´¡ÎÄ¼şÃû
-    //! @param w Í¼Ïñ¿í¶È
-    //! @param h Í¼Ïñ¸ß¶È
-    //! @param config ÊÓÍ¼ÅäÖÃ²ÎÊı
+    // è§†å›¾å¯¼å‡ºæ–¹æ³•
+    //! åˆ›å»ºç¦»å±çª—å£å¹¶å¯¼å‡ºå¤šä¸ªè§†å›¾åˆ°å†…å­˜å’Œæ–‡ä»¶
+    //! @param viewer 3DæŸ¥çœ‹å™¨
+    //! @param context AISäº¤äº’ä¸Šä¸‹æ–‡
+    //! @param baseFileName åŸºç¡€æ–‡ä»¶å
+    //! @param w å›¾åƒå®½åº¦
+    //! @param h å›¾åƒé«˜åº¦
+    //! @param config è§†å›¾é…ç½®å‚æ•°
     void ExportViewsToMemoryAndFile(const Handle(V3d_Viewer)& viewer,
         const Handle(AIS_InteractiveContext)& context,
         const std::wstring& baseFileName,
         const int w, const int h,
         const ViewConfig& config);
 
-    //! Éú³ÉËùÓĞ±ê×¼ÊÓÍ¼£¨Ç°¡¢¶¥¡¢ÓÒ¡¢Ğ±£©µÄÍ¼Ïñ
-    //! @param view 3DÊÓÍ¼¶ÔÏó
-    //! @param baseFileName »ù´¡ÎÄ¼şÃû
-    //! @param windowSize Í¼Ïñ³ß´ç
-    //! @param config ÊÓÍ¼ÅäÖÃ²ÎÊı
+    //! ç”Ÿæˆæ‰€æœ‰æ ‡å‡†è§†å›¾ï¼ˆå‰ã€é¡¶ã€å³ã€æ–œï¼‰çš„å›¾åƒ
+    //! @param view 3Dè§†å›¾å¯¹è±¡
+    //! @param baseFileName åŸºç¡€æ–‡ä»¶å
+    //! @param windowSize å›¾åƒå°ºå¯¸
+    //! @param config è§†å›¾é…ç½®å‚æ•°
     void GenerateAllViews(const Handle(V3d_View)& view,
         const std::wstring& baseFileName,
         const Graphic3d_Vec2i& windowSize,
         const ViewConfig& config);
 
-    // ÊÓÍ¼ÉèÖÃ·½·¨
-    //! ÉèÖÃµ¥¸öÊÓÍ¼µÄ·½Ïò¡¢Ëõ·ÅºÍÖĞĞÄµã
-    //! @param view 3DÊÓÍ¼¶ÔÏó
-    //! @param orientation ÊÓÍ¼·½ÏòÃ¶¾Ù
-    //! @param config ÊÓÍ¼ÅäÖÃ²ÎÊı
-    //! @param scale Ëõ·Å±ÈÀı
-    //! @param center ÊÓÍ¼ÖĞĞÄµã
+    // è§†å›¾è®¾ç½®æ–¹æ³•
+    //! è®¾ç½®å•ä¸ªè§†å›¾çš„æ–¹å‘ã€ç¼©æ”¾å’Œä¸­å¿ƒç‚¹
+    //! @param view 3Dè§†å›¾å¯¹è±¡
+    //! @param orientation è§†å›¾æ–¹å‘æšä¸¾
+    //! @param config è§†å›¾é…ç½®å‚æ•°
+    //! @param scale ç¼©æ”¾æ¯”ä¾‹
+    //! @param center è§†å›¾ä¸­å¿ƒç‚¹
     void SetupView(const Handle(V3d_View)& view,
         V3d_TypeOfOrientation orientation,
         const ViewConfig& config,
         double scale,
         const gp_Pnt& center);
     
-    //! ¼ÆËãÍ³Ò»µÄÊÓÍ¼²ÎÊı£¬È·±£ËùÓĞÊÓÍ¼¾ßÓĞÒ»ÖÂµÄËõ·ÅºÍÖĞĞÄ
-    //! @param view 3DÊÓÍ¼¶ÔÏó
-    //! @param config ÊÓÍ¼ÅäÖÃ²ÎÊı
-    //! @param outScale Êä³ö²ÎÊı£º¼ÆËãµÄÍ³Ò»Ëõ·ÅÖµ
-    //! @param outCenter Êä³ö²ÎÊı£º¼ÆËãµÄÍ³Ò»ÖĞĞÄµã
+    //! è®¡ç®—ç»Ÿä¸€çš„è§†å›¾å‚æ•°ï¼Œç¡®ä¿æ‰€æœ‰è§†å›¾å…·æœ‰ä¸€è‡´çš„ç¼©æ”¾å’Œä¸­å¿ƒ
+    //! @param view 3Dè§†å›¾å¯¹è±¡
+    //! @param config è§†å›¾é…ç½®å‚æ•°
+    //! @param outScale è¾“å‡ºå‚æ•°ï¼šè®¡ç®—çš„ç»Ÿä¸€ç¼©æ”¾å€¼
+    //! @param outCenter è¾“å‡ºå‚æ•°ï¼šè®¡ç®—çš„ç»Ÿä¸€ä¸­å¿ƒç‚¹
     void SetupUnifiedViewParameters(const Handle(V3d_View)& view,
         const ViewConfig& config,
         double& outScale,
         gp_Pnt& outCenter);
 
-    // ¼ÆËã·½·¨
-    //! ¼ÆËãµ±Ç°ÏÔÊ¾Ä£ĞÍµÄ±ß½ç¿ò¡¢ÖĞĞÄµãºÍÖ±¾¶
+    // è®¡ç®—æ–¹æ³•
+    //! è®¡ç®—å½“å‰æ˜¾ç¤ºæ¨¡å‹çš„è¾¹ç•Œæ¡†ã€ä¸­å¿ƒç‚¹å’Œç›´å¾„
     void CalculateModelBounds();
 
-    // ³õÊ¼»¯·½·¨
-    //! ³õÊ¼»¯OpenCASCADEÏÔÊ¾Á¬½Ó
-    //! @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+    // åˆå§‹åŒ–æ–¹æ³•
+    //! åˆå§‹åŒ–OpenCASCADEæ˜¾ç¤ºè¿æ¥
+    //! @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
     bool InitializeDisplay();
 
-    //! ³õÊ¼»¯3D²é¿´Æ÷ºÍÍ¼ĞÎÇı¶¯³ÌĞò
-    //! @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+    //! åˆå§‹åŒ–3DæŸ¥çœ‹å™¨å’Œå›¾å½¢é©±åŠ¨ç¨‹åº
+    //! @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
     bool InitializeViewer();
 
-    //! ³õÊ¼»¯AIS½»»¥ÉÏÏÂÎÄ
-    //! @return ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
+    //! åˆå§‹åŒ–AISäº¤äº’ä¸Šä¸‹æ–‡
+    //! @return æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
     bool InitializeContext();
 
-    // ¹âÕÕÉèÖÃ
-    //! ÉèÖÃ³¡¾°¹âÕÕ£¬°üÀ¨»·¾³¹âºÍ¶à¸ö·½Ïò¹âÔ´
+    // å…‰ç…§è®¾ç½®
+    //! è®¾ç½®åœºæ™¯å…‰ç…§ï¼ŒåŒ…æ‹¬ç¯å¢ƒå…‰å’Œå¤šä¸ªæ–¹å‘å…‰æº
     void SetupLights();
 
-    // äÖÈ¾ÅäÖÃ
-    //! ÅäÖÃÊÓÍ¼äÖÈ¾²ÎÊı£¬°üÀ¨¿¹¾â³İ¡¢ÒõÓ°µÈĞ§¹û
-    //! @param view 3DÊÓÍ¼¶ÔÏó
-    //! @param config ÊÓÍ¼ÅäÖÃ²ÎÊı
+    // æ¸²æŸ“é…ç½®
+    //! é…ç½®è§†å›¾æ¸²æŸ“å‚æ•°ï¼ŒåŒ…æ‹¬æŠ—é”¯é½¿ã€é˜´å½±ç­‰æ•ˆæœ
+    //! @param view 3Dè§†å›¾å¯¹è±¡
+    //! @param config è§†å›¾é…ç½®å‚æ•°
     void ConfigureRendering(const Handle(V3d_View)& view, const ViewConfig& config);
 
-    // »º´æÎ¬»¤
-    //! Î¬»¤»º´æ´óĞ¡£¬ÒÆ³ı³¬³öÏŞÖÆµÄ×î¾ÃÎ´Ê¹ÓÃÄ£ĞÍ
+    // ç¼“å­˜ç»´æŠ¤
+    //! ç»´æŠ¤ç¼“å­˜å¤§å°ï¼Œç§»é™¤è¶…å‡ºé™åˆ¶çš„æœ€ä¹…æœªä½¿ç”¨æ¨¡å‹
     void MaintainCacheSize();
 
-    //! ¸üĞÂÄ£ĞÍÔÚ»º´æÖĞµÄ·ÃÎÊË³Ğò
-    //! @param filePath Ä£ĞÍÎÄ¼şÂ·¾¶
+    //! æ›´æ–°æ¨¡å‹åœ¨ç¼“å­˜ä¸­çš„è®¿é—®é¡ºåº
+    //! @param filePath æ¨¡å‹æ–‡ä»¶è·¯å¾„
     void UpdateCacheOrder(const std::wstring& filePath);
 
-    // ¹¤¾ß·½·¨
-    //! ½«¿í×Ö·û´®×ª»»ÎªUTF-8±àÂë×Ö·û´®
-    //! @param wstr ¿í×Ö·û´®
-    //! @return UTF-8±àÂëµÄ×Ö·û´®
+    // å·¥å…·æ–¹æ³•
+    //! å°†å®½å­—ç¬¦ä¸²è½¬æ¢ä¸ºUTF-8ç¼–ç å­—ç¬¦ä¸²
+    //! @param wstr å®½å­—ç¬¦ä¸²
+    //! @return UTF-8ç¼–ç çš„å­—ç¬¦ä¸²
     std::string ConvertWStringToUtf8(const std::wstring& wstr);
 
-    //! »ñÈ¡ÎÄ¼şÀ©Õ¹Ãû²¢×ª»»ÎªĞ¡Ğ´
-    //! @param filename ÎÄ¼şÃû
-    //! @return Ğ¡Ğ´µÄÀ©Õ¹Ãû
+    //! è·å–æ–‡ä»¶æ‰©å±•åå¹¶è½¬æ¢ä¸ºå°å†™
+    //! @param filename æ–‡ä»¶å
+    //! @return å°å†™çš„æ‰©å±•å
     std::wstring GetFileExtensionLower(const std::wstring& filename);
 
-    //! ¼ì²éÎÄ¼şÊÇ·ñ´æÔÚÇÒ¿É·ÃÎÊ
-    //! @param filePath ÎÄ¼şÂ·¾¶
-    //! @return ÎÄ¼ş´æÔÚ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+    //! æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨ä¸”å¯è®¿é—®
+    //! @param filePath æ–‡ä»¶è·¯å¾„
+    //! @return æ–‡ä»¶å­˜åœ¨è¿”å›trueï¼Œå¦åˆ™è¿”å›false
     bool FileExists(const std::wstring& filePath);
 
-    //! ÑéÖ¤Í¼Ïñ·Ö±æÂÊÊÇ·ñÔÚÓĞĞ§·¶Î§ÄÚ
-    //! @param width Í¼Ïñ¿í¶È
-    //! @param height Í¼Ïñ¸ß¶È
-    //! @return ·Ö±æÂÊÓĞĞ§·µ»Øtrue£¬·ñÔò·µ»Øfalse
+    //! éªŒè¯å›¾åƒåˆ†è¾¨ç‡æ˜¯å¦åœ¨æœ‰æ•ˆèŒƒå›´å†…
+    //! @param width å›¾åƒå®½åº¦
+    //! @param height å›¾åƒé«˜åº¦
+    //! @return åˆ†è¾¨ç‡æœ‰æ•ˆè¿”å›trueï¼Œå¦åˆ™è¿”å›false
     bool IsValidResolution(int width, int height);
 
-    //! ¸ù¾İ·Ö±æÂÊÅĞ¶ÏÊÇ·ñÓ¦Ê¹ÓÃ¸ßÖÊÁ¿äÖÈ¾Ä£Ê½
-    //! @param width Í¼Ïñ¿í¶È
-    //! @param height Í¼Ïñ¸ß¶È
-    //! @return Ó¦Ê¹ÓÃ¸ßÖÊÁ¿Ä£Ê½·µ»Øtrue£¬·ñÔò·µ»Øfalse
+    //! æ ¹æ®åˆ†è¾¨ç‡åˆ¤æ–­æ˜¯å¦åº”ä½¿ç”¨é«˜è´¨é‡æ¸²æŸ“æ¨¡å¼
+    //! @param width å›¾åƒå®½åº¦
+    //! @param height å›¾åƒé«˜åº¦
+    //! @return åº”ä½¿ç”¨é«˜è´¨é‡æ¨¡å¼è¿”å›trueï¼Œå¦åˆ™è¿”å›false
     bool ShouldUseHighQuality(int width, int height) const;
 
     std::vector<Handle(AIS_InteractiveObject)> ParseSingleAISObject(Handle(AIS_InteractiveObject)& obj);
@@ -490,46 +494,46 @@ private:
     void SetViewDirection(Handle(V3d_View)& view, const gp_Dir& direction, const gp_Dir& up, Handle(AIS_InteractiveContext) &context);
 
 private:
-    // ºËĞÄ¶ÔÏó
-    Handle(Aspect_DisplayConnection) m_displayConnection;   //!< OpenCASCADEÏÔÊ¾Á¬½Ó
-    Handle(V3d_Viewer) m_viewer;                            //!< 3D²é¿´Æ÷
-    Handle(AIS_InteractiveContext) m_context;               //!< AIS½»»¥ÉÏÏÂÎÄ
-    Handle(TDocStd_Document) m_currentDoc;                  //!< µ±Ç°XCAFÎÄµµ
+    // æ ¸å¿ƒå¯¹è±¡
+    Handle(Aspect_DisplayConnection) m_displayConnection;   //!< OpenCASCADEæ˜¾ç¤ºè¿æ¥
+    Handle(V3d_Viewer) m_viewer;                            //!< 3DæŸ¥çœ‹å™¨
+    Handle(AIS_InteractiveContext) m_context;               //!< AISäº¤äº’ä¸Šä¸‹æ–‡
+    Handle(TDocStd_Document) m_currentDoc;                  //!< å½“å‰XCAFæ–‡æ¡£
 
-    // »º´æ¹ÜÀí
-    size_t m_maxCache = 10;                                                     //!< ×î´ó»º´æÄ£ĞÍÊıÁ¿
-    std::list<std::wstring> m_cacheOrder;                                       //!< »º´æ·ÃÎÊË³Ğò£¨LRU£©
-    std::unordered_map<std::wstring, std::vector<Handle(AIS_InteractiveObject)>> m_loadedModelsCache; //!< Ä£ĞÍ»º´æÓ³Éä
+    // ç¼“å­˜ç®¡ç†
+    size_t m_maxCache = 10;                                                     //!< æœ€å¤§ç¼“å­˜æ¨¡å‹æ•°é‡
+    std::list<std::wstring> m_cacheOrder;                                       //!< ç¼“å­˜è®¿é—®é¡ºåºï¼ˆLRUï¼‰
+    std::unordered_map<std::wstring, std::vector<Handle(AIS_InteractiveObject)>> m_loadedModelsCache; //!< æ¨¡å‹ç¼“å­˜æ˜ å°„
 
-    // Í¼ÏñÊı¾İ
-    std::vector<std::vector<unsigned char>> m_imageDataBuffers;                 //!< Éú³ÉµÄÍ¼ÏñÊı¾İ»º³åÇø
+    // å›¾åƒæ•°æ®
+    std::vector<std::vector<unsigned char>> m_imageDataBuffers;                 //!< ç”Ÿæˆçš„å›¾åƒæ•°æ®ç¼“å†²åŒº
 
-    // ÎÄ¼şÂ·¾¶
-    std::wstring m_filePath;                                                    //!< µ±Ç°¼ÓÔØµÄÎÄ¼şÂ·¾¶
+    // æ–‡ä»¶è·¯å¾„
+    std::wstring m_filePath;                                                    //!< å½“å‰åŠ è½½çš„æ–‡ä»¶è·¯å¾„
 
-    // ±êÖ¾Î»
-    bool m_generateImages = false;           //!< ÊÇ·ñÉú³ÉÍ¼ÏñÎÄ¼ş
-    bool m_usePerformanceMode = false;      //!< ÊÇ·ñÊ¹ÓÃĞÔÄÜÓÅÏÈÄ£Ê½
-    int m_lastImageWidth = 0;               //!< ÉÏ´ÎÉú³ÉÍ¼ÏñµÄ¿í¶È
-    int m_lastImageHeight = 0;              //!< ÉÏ´ÎÉú³ÉÍ¼ÏñµÄ¸ß¶È
+    // æ ‡å¿—ä½
+    bool m_generateImages = false;           //!< æ˜¯å¦ç”Ÿæˆå›¾åƒæ–‡ä»¶
+    bool m_usePerformanceMode = false;      //!< æ˜¯å¦ä½¿ç”¨æ€§èƒ½ä¼˜å…ˆæ¨¡å¼
+    int m_lastImageWidth = 0;               //!< ä¸Šæ¬¡ç”Ÿæˆå›¾åƒçš„å®½åº¦
+    int m_lastImageHeight = 0;              //!< ä¸Šæ¬¡ç”Ÿæˆå›¾åƒçš„é«˜åº¦
 
-    // Ä£ĞÍ¼¸ºÎĞÅÏ¢
-    bool m_boundsCalculated = false;        //!< ±ß½ç¿òÊÇ·ñÒÑ¼ÆËã
-    gp_Pnt m_modelMin;                      //!< Ä£ĞÍ×îĞ¡×ø±êµã
-    gp_Pnt m_modelMax;                      //!< Ä£ĞÍ×î´ó×ø±êµã
-    gp_Pnt m_modelCenter;                   //!< Ä£ĞÍ¼¸ºÎÖĞĞÄµã
-    double m_modelDiameter = 0.0;           //!< Ä£ĞÍ¶Ô½ÇÏß³¤¶È
+    // æ¨¡å‹å‡ ä½•ä¿¡æ¯
+    bool m_boundsCalculated = false;        //!< è¾¹ç•Œæ¡†æ˜¯å¦å·²è®¡ç®—
+    gp_Pnt m_modelMin;                      //!< æ¨¡å‹æœ€å°åæ ‡ç‚¹
+    gp_Pnt m_modelMax;                      //!< æ¨¡å‹æœ€å¤§åæ ‡ç‚¹
+    gp_Pnt m_modelCenter;                   //!< æ¨¡å‹å‡ ä½•ä¸­å¿ƒç‚¹
+    double m_modelDiameter = 0.0;           //!< æ¨¡å‹å¯¹è§’çº¿é•¿åº¦
     
-    // Í¼Æ¬ĞÅÏ¢
-    int m_imageWidth = 640;                 //!< Í¼Ïñ¿í¶È£¨ÏñËØ£©
-    int m_imageHeight = 480;                //!< Í¼Ïñ¸ß¶È£¨ÏñËØ£©
-    double m_focalLength = 50.0;            //!< ĞéÄâÏà»ú½¹¾à£¨ºÁÃ×£©
+    // å›¾ç‰‡ä¿¡æ¯
+    int m_imageWidth = 640;                 //!< å›¾åƒå®½åº¦ï¼ˆåƒç´ ï¼‰
+    int m_imageHeight = 480;                //!< å›¾åƒé«˜åº¦ï¼ˆåƒç´ ï¼‰
+    double m_focalLength = 50.0;            //!< è™šæ‹Ÿç›¸æœºç„¦è·ï¼ˆæ¯«ç±³ï¼‰
     
-    // ÊÓÍ¼ÅäÖÃ
+    // è§†å›¾é…ç½®
     ViewConfig m_viewConfig;
 
-    //!< µ±Ç°ÊÓÍ¼ÅäÖÃ²ÎÊı
+    //!< å½“å‰è§†å›¾é…ç½®å‚æ•°
 };
 
-// TODO: ²»ÄÜÓÃ3DÎÄ¼ş×Ô´ø×ø±êÏµ£¬Òª¸ù¾İ²âÁ¿µÄÄÚÈİÈ¥·­×ª3DÄ£ĞÍ
-// TODO: ¶ÁĞ´ËÙ¶È½øÒ»²½ÓÅ»¯£¬¼Ó¿ìÎÄ¼ş¼ÓÔØËÙ¶È
+// TODO: ä¸èƒ½ç”¨3Dæ–‡ä»¶è‡ªå¸¦åæ ‡ç³»ï¼Œè¦æ ¹æ®æµ‹é‡çš„å†…å®¹å»ç¿»è½¬3Dæ¨¡å‹
+// TODO: è¯»å†™é€Ÿåº¦è¿›ä¸€æ­¥ä¼˜åŒ–ï¼ŒåŠ å¿«æ–‡ä»¶åŠ è½½é€Ÿåº¦
